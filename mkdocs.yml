@@ -1,0 +1,48 @@
+site_name: 中航智能家居系统文档
+site_url: https://sysu-aicpm.github.io/docs
+theme:
+  name: material
+  language: zh
+  # logo: assets/icon-light.png
+  # favicon: assets/icon-light.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    # - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+
+nav:
+  - 主页: index.md 
+  - 需求分析: requirements.md
+  - 软件设计: 
+    - 后端接口: design/backend.md
+    - 前端页面: design/frontend.md
+    - 设备接口: design/device.md
+    - 数据库设计: design/db.md
+  - 项目管理:
+    - management/index.md
+    - 分工: management/division.md
+  - 测试: test.md
+  - 部署: deploy.md
+  - 维护: maintain.md 
+
+
