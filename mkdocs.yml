@@ -35,12 +35,13 @@ nav:
   - 背景: background.md
   - 需求分析: requirements.md
   - 软件设计: 
+    - 设计概览: design/index.md
     - 后端接口: design/backend.md
     - 前端页面: design/frontend.md
     - 设备接口: design/device.md
     - 数据库设计: design/db.md
   - 项目管理:
-    - management/index.md
+    - 项目管理: management/index.md
     - 分工: management/division.md
   - 测试: test.md
   - 部署: deploy.md
