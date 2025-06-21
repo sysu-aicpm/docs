@@ -3,8 +3,10 @@ site_url: https://sysu-aicpm.github.io/docs
 theme:
   name: material
   language: zh
-  # logo: assets/icon-light.png
-  # favicon: assets/icon-light.png
+  logo: assets/aicpm-logo.png
+  favicon: assets/aicpm-logo.png
+  icon:
+    repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -59,8 +61,8 @@ nav:
     - 后端开发: dev/backend.md
     - MCP-server开发: dev/mcp-server.md
 
-
-    
+repo_url: https://github.com/sysu-aicpm/docs
+repo_name: sysu-aicpm
 
 
 extra_javascript:
