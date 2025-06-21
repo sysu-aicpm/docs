@@ -14,7 +14,10 @@ AICPM是一套面向智能家居的全屋设备智能管理系统，致力于解
 AICPM完全开源，欢迎社区贡献：
 
 - **代码仓库**：[https://github.com/sysu-aicpm](https://github.com/sysu-aicpm)
-- **项目文档**：[https://sysu-aicpm.github.io/docs/](https://sysu-aicpm.github.io/docs/)
+
+- **项目文档**：
+    - [https://sysu-aicpm.github.io/docs/](https://sysu-aicpm.github.io/docs/)
+    - [飞书文档](https://sysu-aicpm.feishu.cn/wiki/RMe5w4IUHiw0dkk5QF5cUysrnMe)
 
 我们鼓励开发者和研究人员参与项目，共同推动智能家居技术的发展与创新。无论是提交代码、报告问题还是提出新的功能建议，您的参与都将帮助我们打造更安全、更智能的家居系统。
 

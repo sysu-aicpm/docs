@@ -29,22 +29,41 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences
+  - pymdownx.tasklist
 
 nav:
   - 主页: index.md 
-  - 背景: background.md
-  - 需求分析: requirements.md
+  - 背景介绍: background.md
+  - 需求分析与功能点: requirements.md
   - 软件设计: 
     - 设计概览: design/index.md
-    - 后端接口: design/backend.md
-    - 前端页面: design/frontend.md
-    - 设备接口: design/device.md
     - 数据库设计: design/db.md
-  - 项目管理:
-    - 项目管理: management/index.md
-    - 分工: management/division.md
-  - 测试: test.md
-  - 部署: deploy.md
-  - 维护: maintain.md 
+    - 后端接口: design/backend.md
+    - 设备接口: design/device.md
+    - 前端开发: design/frontend.md
+    - 权限设计: design/permission.md
+    
+    
+    
+  - 项目管理与分工: management.md
+
+  - 测试: 
+    - 接口测试: test/api.md
+    - 性能测试: test/performance.md
+    - 权限测试: test/permission.md
+    - 安全测试: test/security.md
+  - 开发:
+    - 开发概览: dev/index.md
+    - 前端开发: dev/frontend.md
+    - 数据库开发: dev/db.md
+    - 后端开发: dev/backend.md
+    - MCP-server开发: dev/mcp-server.md
 
 
+    
+
+
+extra_javascript:
+  - js/your_script.js  # 如果你有其他 JS
+extra_css:
+  - css/your_style.css # 如果你有其他样式表
