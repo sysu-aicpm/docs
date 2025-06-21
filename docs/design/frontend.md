@@ -1,4 +1,4 @@
-## 智能家居项目前端开发文档
+
 
 本文档旨在为 **AICPM 智能家居权限管理系统** 的前端应用提供一份全面、详尽的技术与开发指南。前端应用基于 `Flutter` 框架构建，旨在为用户提供一个高性能、跨平台（iOS, Android, Web, Desktop）的统一体验。
 
@@ -6,11 +6,11 @@
 
 ---
 
-### 第一章：技术栈与架构总览
+## 第一章：技术栈与架构总览
 
 本章将详细介绍项目前端所采用的核心技术、框架和第三方库，并阐述其背后的架构思想。
 
-#### 1.1 核心技术栈
+### 1.1 核心技术栈
 
 下表总结了项目所依赖的关键技术和库：
 
@@ -53,7 +53,7 @@
 <td><br/></td><td>`flutter_launcher_icons`<br/></td><td>`^0.14.4`<br/></td><td>根据资源文件自动生成应用启动图标。<br/></td></tr>
 </table>
 
-#### 1.2 架构概述
+### 1.2 架构概述
 
 项目采用以 **BLoC (Business Logic Component)** 为核心的现代响应式架构。这种架构选择的出发点是实现 业务逻辑与视图（UI）的彻底分离。
 
@@ -78,7 +78,7 @@
 - **代码复用**: 业务逻辑可以被不同的 UI 组件复用。
 - **开发者友好**: BLoC 提供了清晰的事件驱动模型，让开发者能轻松追踪状态变化的完整过程。
 
-### 第二章：项目文件结构
+## 第二章：项目文件结构
 
 一个良好、统一的目录结构是高效协作的基础。本章将详细解析 `frontend/lib` 目录下的核心文件组织方式。项目遵循**功能优先 (Feature-first)** 的分包策略，同时结合了**分层架构 (Layered Architecture)** 的思想。
 
@@ -134,7 +134,7 @@ lib/
 └── main.dart
 ```
 
-#### 2.1 顶级目录解析
+### 2.1 顶级目录解析
 
 - **main.dart**: **应用入口**。
 
@@ -175,7 +175,7 @@ lib/
   - **职责**: 存放应用的全局配置信息。
   - **env.dart**: 存储环境变量，如后端的 `BASE_URL`。这使得在开发、测试和生产环境之间切换 API 服务器地址变得简单。
 
-#### 2.2 特色功能模块：`flutter_chat_desktop/`
+### 2.2 特色功能模块：`flutter_chat_desktop/`
 
 这是一个功能高度内聚的"子应用"——**AI 智能聊天模块**。
 
@@ -191,15 +191,15 @@ lib/
 
 ---
 
-### 第三章：核心功能模块解析
+## 第三章：核心功能模块解析
 
 本章将深入到具体的业务功能模块中，结合 `pages`, `bloc`, `api` 中的代码，详细阐述其实现逻辑。我们将以 BLoC 为线索，逐一剖析。
 
-#### 3.1 用户认证 (Authentication)
+### 3.1 用户认证 (Authentication)
 
 用户认证是系统的入口，也是保障系统安全的第一道屏障。它由 `auth` BLoC、`login_page.dart`、`register_page.dart` 以及 `api_client.dart` 中的相关方法共同完成。
 
-##### 3.1.1 认证流程与状态机
+#### 3.1.1 认证流程与状态机
 
 整个认证模块可以被看作一个状态机，其生命周期由 `AuthBloc` (`lib/bloc/auth/bloc.dart`) 管理。核心状态如下：
 
@@ -248,7 +248,7 @@ lib/
    - 调用 `_secureStorage.deleteToken()` 清除本地存储的 Token。
    - 发出 `Unauthenticated` 状态，触发 UI 导航回登录页面。
 
-##### 3.1.2 与 AI 聊天模块的集成
+#### 3.1.2 与 AI 聊天模块的集成
 
 在 `AuthBloc` 中可以观察到一个有趣的设计：认证状态与 `flutter_chat_desktop` 模块是联动的。
 
@@ -268,11 +268,11 @@ _ref?.read(settingsServiceProvider)
 - **目的**: 这表明 AI 聊天功能需要用户的身份认证才能正常工作。它作为一个独立的客户端，通过这种方式从主应用获取到了访问后端资源的凭证。
 - **解耦**: 当用户登出时，`AuthBloc` 同样会调用 `deleteMcpServer` 来终止这个服务，完成了生命周期的同步和资源的释放。这种设计将认证逻辑与聊天模块的具体实现解耦开来，主应用只负责传递凭证，而无需关心聊天模块内部如何使用它。
 
-#### 3.2 设备管理
+### 3.2 设备管理
 
 设备管理是智能家居应用的核心，主要包括设备列表的展示与操作、设备详情的查看与控制。
 
-##### 3.2.1 设备列表 (`DeviceListPage`)
+#### 3.2.1 设备列表 (`DeviceListPage`)
 
 这是用户登录后看到的主要界面之一，负责展示用户权限下的所有设备，并提供管理入口。
 
@@ -309,7 +309,7 @@ _ref?.read(settingsServiceProvider)
   - 在编辑模式下，用户可以多选设备，被选中的设备卡片会有高亮边框。`AppBar` 也会切换为显示已选中的数量和"移除"按钮。
   - 点击"移除"按钮，会弹窗二次确认。确认后，页面会遍历所有选中的设备 ID，并为每一个 ID 发送一个 `DeleteDevice` 事件给 Bloc，从而实现批量删除。
 
-##### 3.2.2 设备详情与控制 (`DeviceDetailPage`)
+#### 3.2.2 设备详情与控制 (`DeviceDetailPage`)
 
 此页面是用户与单个设备进行深度交互的场所，负责展示设备的全部信息并提供编辑功能。
 
@@ -341,11 +341,11 @@ _ref?.read(settingsServiceProvider)
 - **副作用处理 (**`BlocConsumer`): 页面使用 `BlocConsumer` 来同时处理 UI 构建和一次性事件。`listener` 部分专门负责响应 `DeviceDetailUpdateSuccess` 和 `DeviceDetailFailure` 状态，通过 `ScaffoldMessenger` 弹出 `SnackBar` 来向用户反馈操作结果，而不引起整个页面的非必要重构。
 - **编辑流程**: 当数据加载成功后，`AppBar` 上会出现编辑按钮。点击后会弹出一个对话框，让用户修改设备信息。点击"保存"会触发 `UpdateDeviceInfo` 事件，启动上述的更新流程。
 
-#### 3.3 管理员功能
+### 3.3 管理员功能
 
 应用内包含一套功能完善的管理后台，仅对 `is_staff` 标记为 `true` 的用户可见。这些功能允许管理员对系统的用户、设备和权限进行精细化管理。
 
-##### 3.3.1 用户管理 (`UserListPage`)
+#### 3.3.1 用户管理 (`UserListPage`)
 
 这是管理员进行用户管理的基础页面，提供系统中所有用户的列表视图。
 
@@ -363,7 +363,7 @@ _ref?.read(settingsServiceProvider)
 - **管理操作入口**: 每个用户卡片右侧都有一个"更多"(`...`)按钮，它会弹出一个 `PopupMenuButton`。这种设计避免了在列表中平铺多个操作按钮，保持了界面的简洁性。
 - **导航至权限页**: 当前的弹出菜单中包含"权限管理"选项。点击该选项，页面会导航至 `UserPermissionPage`，并将当前用户的 `id` 传递过去。这构成了管理员的核心工作流：从列表中定位到特定用户，然后进入专门的页面对其进行操作。
 
-##### 3.3.2 用户权限管理 (`UserPermissionPage`)
+#### 3.3.2 用户权限管理 (`UserPermissionPage`)
 
 这是权限系统的核心界面，允许管理员为单个用户精确地授予或撤销对特定设备及设备组的访问和控制权限。
 
@@ -400,7 +400,7 @@ _ref?.read(settingsServiceProvider)
   - 当管理员通过 UI 控件（如下拉菜单）修改某个设备或设备组的权限时，`onChanged` 回调会立即向 Bloc 发送对应的 `Update...` 事件。
 - **健壮的错误处理**: 当 `state` 是 `UserPermissionError` 时，页面不仅会显示错误信息，还会提供一个"重试"按钮，让用户可以方便地重新触发 `LoadUserPermission` 事件，提升了容错能力和用户体验。
 
-##### 3.3.3 用户组管理
+#### 3.3.3 用户组管理
 
 为了简化大规模的权限分配，系统引入了"用户组"的概念。管理员可以创建用户组，为整个组分配权限，然后通过管理组成员来批量调整用户的权限，而不是逐一为用户进行设置。
 
@@ -438,11 +438,11 @@ _ref?.read(settingsServiceProvider)
 
 ---
 
-### 第四章：前后端协作机制 (`ApiClient`)
+## 第四章：前后端协作机制 (`ApiClient`)
 
 `ApiClient` (`lib/api/api_client.dart`) 是前端与后端 API 进行通信的唯一出口，是连接业务逻辑层与数据源的桥梁。它基于强大的 `dio` 库构建，并采用拦截器实现了优雅的自动化认证处理。
 
-#### 4.1 `dio` 实例配置与拦截器
+### 4.1 `dio` 实例配置与拦截器
 
 - **基础配置**: `ApiClient` 在构造时会初始化一个 `dio` 实例，并从 `config/env.dart` 文件中读取 `Env.apiUrl` 作为其 `baseUrl`。这使得应用可以轻松地在不同环境（开发、测试、生产）的服务器之间切换。此外，还提供 `setAPIURL` 方法，支持在运行时动态修改 API 服务器地址。
 - **自动认证注入 (Interceptor)**:
@@ -455,7 +455,7 @@ _ref?.read(settingsServiceProvider)
     4. 最后，调用 `handler.next(options)` 将带有（或不带）认证头的请求放行。
   - **优势**: 这种设计实现了认证逻辑与具体业务请求的完全解耦。任何一个 `Bloc` 在调用 `ApiClient` 的方法时，都无需关心 Token 的存在与否或如何传递，拦截器会自动处理这一切，极大地简化了业务层代码。
 
-#### 4.2 API 方法概览
+### 4.2 API 方法概览
 
 `ApiClient` 中的方法按照后端 API 的模块进行了清晰的划分，每个方法都对应一个具体的 RESTful 接口。
 
@@ -483,7 +483,7 @@ _ref?.read(settingsServiceProvider)
   - 提供了为组添加/移除成员（用户或设备）的接口。
   - 提供了为整个组设置权限的接口。
 
-#### 4.3 错误处理
+### 4.3 错误处理
 
 `ApiClient` 自身并不包含显式的 `try-catch` 块。它遵循 `dio` 的默认行为：当 API 返回非 2xx 状态码时，`dio` 会抛出一个 `DioException`。
 
@@ -491,11 +491,11 @@ _ref?.read(settingsServiceProvider)
 
 ---
 
-### 第五章：UI/UX 与主题设计
+## 第五章：UI/UX 与主题设计
 
 本章将概述项目在用户界面（UI）、用户体验（UX）和视觉风格方面的设计与实现策略。
 
-#### 5.1 设计系统与风格
+### 5.1 设计系统与风格
 
 - **设计语言**: 应用遵循 **Material Design** 设计规范，通过 `uses-material-design: true` 配置，利用了 Flutter 内置的丰富、高质量的 Material 组件库，确保了 UI 在不同平台上的行为一致性和视觉熟悉感。
 - **自定义字体**: 项目在 `pubspec.yaml` 中引入了 `LxgwWenkaiGb` (霞鹜文楷 GB) 作为全局自定义字体。这款字体具有手写温度和良好的可读性，为应用赋予了独特、优雅的视觉风格，提升了品牌的辨识度。
@@ -505,7 +505,7 @@ _ref?.read(settingsServiceProvider)
   - `flutter_svg`: 用于加载和渲染 `SVG` 格式的矢量图标。使用 SVG 作为图标格式，可以保证图标在任何屏幕尺寸和分辨率下都保持清晰锐利，不会失真。
 - **统一样式**: `utils/styles.dart` 文件（虽然本文档未深入分析其内容）被用作一个中心化的样式定义库，用于存放通用的颜色、文本样式、边距等。这种做法便于实现全局 UI 风格的统一管理和快速调整。
 
-#### 5.2 动态主题切换
+### 5.2 动态主题切换
 
 应用支持动态主题切换（例如，日间/夜间模式），为用户提供了个性化的视觉体验。其实现机制如下：
 
@@ -516,11 +516,11 @@ _ref?.read(settingsServiceProvider)
   - **保存**: 当用户切换主题后，`toggleTheme` 方法会调用 `_saveTheme`，将新的 `ThemeMode` 的索引（`themeMode.index`）持久化到本地。
 - **UI 交互**: `widgets/theme_toggle_button.dart` 是一个可复用的 UI 组件，它允许用户在不同主题模式之间切换。点击该按钮会调用 `ThemeNotifier` 的 `toggleTheme` 方法来更新状态。
 
-### 第六章：开发入门指南
+## 第六章：开发入门指南
 
 本章为新加入的开发者提供快速搭建和运行前端项目的指导。
 
-#### 6.1 环境准备
+### 6.1 环境准备
 
 1. **安装 Flutter**: 请确保你已安装 Flutter SDK，并且版本兼容 `pubspec.yaml` 中定义范围 (`>=3.8.0 <4.0.0`)。可以通过 `flutter --version` 命令检查。
 2. **IDE 配置**: 配置好你的开发环境（如 VS Code 或 Android Studio/IntelliJ）及相关的 Flutter 和 Dart 插件。
@@ -535,7 +535,7 @@ cd frontend
 
 
 
-#### 6.2 构建与运行
+### 6.2 构建与运行
 
 
 
@@ -585,12 +585,12 @@ flutter run --profile
 - **发布打包 (Release Mode)**: 用于生成最终提交到应用商店或部署的正式版本。此模式下会进行最大程度的优化，应用体积最小，性能最好。
 
 
-## 以 Android 为例，构建一个 release APK
+以 Android 为例，构建一个 release APK
 
 ```bash
 flutter build apk --release
 
-## 以 Web 为例，构建 release 版本的 web 应用
+# 以 Web 为例，构建 release 版本的 web 应用
 
 flutter build web --release
 
@@ -598,7 +598,7 @@ flutter build web --release
 
 
 
-### 结语
+## 结语
 
 
 
